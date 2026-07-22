@@ -18,10 +18,6 @@
         <vm:MainViewModel />
     </Design.DataContext>
 
-    <Window.DataContext>
-        <vm:MainViewModel />
-    </Window.DataContext>
-
     <Grid ColumnDefinitions="Auto,*"
           Background="{DynamicResource PrimaryBackground}">
 
@@ -115,6 +111,8 @@
                 </StackPanel>
 
                 <Button Grid.Row="1"
+                        Classes.active="{Binding SettingsButtonIsActive}"
+                        Command="{Binding GoToSettingsPageCommand}"
                         Classes="transparent">
                     <Label Classes="icon-only"
                            Content="&#xe270;"/>

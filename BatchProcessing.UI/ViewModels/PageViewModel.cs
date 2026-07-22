@@ -8,14 +8,9 @@ using System.Threading.Tasks;
 
 namespace BatchProcessing.UI.ViewModels
 {
-    public partial class HomePageViewModel : PageViewModel
+    public partial class PageViewModel : ViewModelBase
     {
-        public HomePageViewModel()
-        {
-            PageName = ApplicationPageName.Home;
-        }
-
         [ObservableProperty]
-        private string _title = "HomePage";
+        private ApplicationPageName _pageName;
     }
 }

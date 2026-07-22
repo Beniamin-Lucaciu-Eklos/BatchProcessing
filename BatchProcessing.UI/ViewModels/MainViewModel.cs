@@ -1,3 +1,5 @@
+using BatchProcessing.UI.Data;
+using BatchProcessing.UI.Factories;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 
@@ -5,11 +7,13 @@ namespace BatchProcessing.UI.ViewModels
 {
     public partial class MainViewModel : ViewModelBase
     {
-        private readonly string ButtonActive = "active";
+        private readonly PageFactory _pageFactory;
 
-        public MainViewModel()
+        public MainViewModel(PageFactory pageFactory)
         {
-            CurrentPage = _homePage;
+            _pageFactory = pageFactory;
+
+            GoToHomePage();
         }
 
         [ObservableProperty]
@@ -21,21 +25,20 @@ namespace BatchProcessing.UI.ViewModels
         [ObservableProperty]
         [NotifyPropertyChangedFor(nameof(HomeButtonIsActive))]
         [NotifyPropertyChangedFor(nameof(ProcessButtonIsActive))]
-        private ViewModelBase _currentPage;
+        [NotifyPropertyChangedFor(nameof(ActionsButtonIsActive))]
+        [NotifyPropertyChangedFor(nameof(MacrosButtonIsActive))]
+        [NotifyPropertyChangedFor(nameof(ReporterButtonIsActive))]
+        [NotifyPropertyChangedFor(nameof(HistoryButtonIsActive))]
+        [NotifyPropertyChangedFor(nameof(SettingsButtonIsActive))]
+        private PageViewModel _currentPage;
 
-        public bool HomeButtonIsActive => _currentPage == _homePage;
-        public bool ProcessButtonIsActive => _currentPage == _processPage;
-        public bool ActionsButtonIsActive => _currentPage == _actionsPage;  
-        public bool MacrosButtonIsActive => _currentPage == _macrosPage;
-        public bool ReporterButtonIsActive => _currentPage == _reporterPage;
-        public bool HistoryButtonIsActive => _currentPage == _historyPage;
-
-        private readonly HomePageViewModel _homePage = new();
-        private readonly ProcessPageViewModel _processPage = new();
-        private readonly ActionsPageViewModel _actionsPage = new();
-        private readonly MacrosPageViewModel _macrosPage = new();
-        private readonly ReporterPageViewModel _reporterPage = new();
-        private readonly HistoryPageViewModel _historyPage = new();
+        public bool HomeButtonIsActive => _currentPage.PageName == ApplicationPageName.Home;
+        public bool ProcessButtonIsActive => _currentPage.PageName == ApplicationPageName.Process;
+        public bool ActionsButtonIsActive => _currentPage.PageName == ApplicationPageName.Actions;
+        public bool MacrosButtonIsActive => _currentPage.PageName == ApplicationPageName.Macros;
+        public bool ReporterButtonIsActive => _currentPage.PageName == ApplicationPageName.Reporter;
+        public bool HistoryButtonIsActive => _currentPage.PageName == ApplicationPageName.History;
+        public bool SettingsButtonIsActive => _currentPage.PageName == ApplicationPageName.Settings;
 
         [RelayCommand]
         private void SideMenuResize()
@@ -44,24 +47,24 @@ namespace BatchProcessing.UI.ViewModels
         }
 
         [RelayCommand]
-        private void GoToHomePage() => CurrentPage = _homePage;
-
-
-        [RelayCommand]
-        private void GoToProcessPage() => CurrentPage = _processPage;
+        private void GoToHomePage() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageName.Home);
 
         [RelayCommand]
-        private void GoToActionsPage() => CurrentPage = _actionsPage;
+        private void GoToProcessPage() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageName.Process);
 
         [RelayCommand]
-        private void GoToMacrosPage() => CurrentPage = _macrosPage;
+        private void GoToActionsPage() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageName.Actions);
 
         [RelayCommand]
-        private void GoToReporterPage() => CurrentPage = _reporterPage;
+        private void GoToMacrosPage() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageName.Macros);
 
         [RelayCommand]
-        private void GoToHistoryPage() => CurrentPage = _historyPage;
+        private void GoToReporterPage() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageName.Reporter);
 
+        [RelayCommand]
+        private void GoToHistoryPage() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageName.History);
 
+        [RelayCommand]
+        private void GoToSettingsPage() => CurrentPage = _pageFactory.GetPageViewModel(ApplicationPageName.Settings);
     }
 }
