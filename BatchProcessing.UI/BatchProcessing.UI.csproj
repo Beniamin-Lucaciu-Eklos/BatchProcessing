@@ -1,0 +1,55 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+	 <AssemblyName>BatchProcessing</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\images\" />
+    <Folder Include="Models\" />
+	<AvaloniaResource Include="Assets/**" />
+	<AvaloniaResource Include="../assets/**" Link="assets/images/%(RecursiveDir)%(FileName)%(Extension)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="12.1.0" />
+    <PackageReference Include="Avalonia.Desktop" Version="12.1.0" />
+    <PackageReference Include="Avalonia.Themes.Fluent" Version="12.1.0" />
+    <PackageReference Include="Avalonia.Fonts.Inter" Version="12.1.0" />
+    <PackageReference Include="AvaloniaUI.DiagnosticsSupport" Version="2.2.3">
+      <IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+      <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\ActionsPageView.axaml.cs">
+      <DependentUpon>ActionsPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\HistoryPageView.axaml.cs">
+      <DependentUpon>HistoryPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MacrosPageView.axaml.cs">
+      <DependentUpon>MacrosPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ReporterPageView.axaml.cs">
+      <DependentUpon>ReporterPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\ProcessPageView.axaml.cs">
+      <DependentUpon>ProcessPageView.axaml</DependentUpon>
+    </Compile>
+    <Compile Update="Views\MainView.axaml.cs">
+      <DependentUpon>MainView.axaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Assets\brand.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,129 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BatchProcessing.UI.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="using:BatchProcessing.UI.Views"
+        mc:Ignorable="d"
+        d:DesignWidth="800" d:DesignHeight="600"
+        Width="1024" Height="600"
+        x:Class="BatchProcessing.UI.Views.MainView"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="BatchProcessing.UI">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+        to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainViewModel />
+    </Design.DataContext>
+
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Grid ColumnDefinitions="Auto,*"
+          Background="{DynamicResource PrimaryBackground}">
+
+        <Border Grid.Column="0"
+                Padding="20"
+                Background="{DynamicResource PrimaryBackgroundGradient}">
+            <Grid RowDefinitions="*, Auto">
+                <StackPanel Grid.Row="0" Spacing="12">
+                    <Image Source="/Assets/avalonia-logo.ico"
+                           Stretch="Uniform"
+                           Width="20"
+                           PointerPressed="Image_PointerPressed"/>
+
+                    <Button HorizontalAlignment="Stretch"
+                            Classes.active="{Binding HomeButtonIsActive}"
+                            Command="{Binding GoToHomePageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="icon"
+                                   Content="&#xe2c2;"/>
+
+                            <Label Content="Home" 
+                                   Classes="akko"
+                                   IsVisible="{Binding SideMenuExpanded}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button HorizontalAlignment="Stretch"
+                            Classes.active="{Binding ProcessButtonIsActive}"
+                            Command="{Binding GoToProcessPageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="icon"
+                                   Content="&#xe2c8;"/>
+
+                            <Label Content="Process" 
+                                   Classes="akko"
+                                   IsVisible="{Binding SideMenuExpanded}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button HorizontalAlignment="Stretch"
+                            Classes.active="{Binding ActionsButtonIsActive}"
+                            Command="{Binding GoToActionsPageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="icon"
+                                   Content="&#xe7F2;"/>
+
+                            <Label Content="Actions"
+                                   Classes="akko"
+                                   IsVisible="{Binding SideMenuExpanded}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button HorizontalAlignment="Stretch"
+                            Classes.active="{Binding MacrosButtonIsActive}"
+                            Command="{Binding GoToMacrosPageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="icon"
+                                   Content="&#xe3EE;"/>
+
+                            <Label Content="Macros" 
+                                   Classes="akko"
+                                   IsVisible="{Binding SideMenuExpanded}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button HorizontalAlignment="Stretch"
+                            Classes.active="{Binding ReporterButtonIsActive}"
+                            Command="{Binding GoToReporterPageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="icon"
+                                   Content="&#xeB7A;"/>
+
+                            <Label Content="Reporter"
+                                   Classes="akko"
+                                   IsVisible="{Binding SideMenuExpanded}"/>
+                        </StackPanel>
+                    </Button>
+
+                    <Button HorizontalAlignment="Stretch"
+                            Classes.active="{Binding HistoryButtonIsActive}"
+                            Command="{Binding GoToHistoryPageCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Classes="icon"
+                                   Content="&#xe03A;"/>
+
+                            <Label Content="History" 
+                                   Classes="akko"
+                                   IsVisible="{Binding SideMenuExpanded}"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+                <Button Grid.Row="1"
+                        Classes="transparent">
+                    <Label Classes="icon-only"
+                           Content="&#xe270;"/>
+                </Button>
+            </Grid>
+        </Border>
+
+        <ContentControl Grid.Column="1" 
+                        Content="{Binding CurrentPage}"></ContentControl>
+    </Grid>
+
+</Window>
